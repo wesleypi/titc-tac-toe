@@ -4,7 +4,7 @@ import tictactoe.view.RenderBoard;
 
 import java.util.Scanner;
 
-public class TicTacGame {
+public class TicTacToeGame {
     private char player;
     private boolean hasEndedTurn;
     private int rowChosen;
@@ -13,7 +13,7 @@ public class TicTacGame {
     private final RenderBoard renderBoard;
     private final Scanner scanner = new Scanner(System.in);
 
-    public TicTacGame (){
+    public TicTacToeGame(){
         player = 'X';
         hasEndedTurn = false;
         board = new Board(3);
@@ -21,7 +21,7 @@ public class TicTacGame {
     }
 
     public void turn() {
-        while (board.isInvalidPosition(rowChosen, columnChosen) || !hasEndedTurn) {
+        while (!board.isEmptyElement(rowChosen, columnChosen) || board.isInvalidPosition(rowChosen, columnChosen) || !hasEndedTurn) {
             renderBoard.render();
 
             rowChosen = renderPositionMessage("linha");
@@ -30,7 +30,10 @@ public class TicTacGame {
             hasEndedTurn = true;
 
             if (board.isInvalidPosition(rowChosen, columnChosen))
-                System.out.println("Oops, movimento inválido! Por favor, repita novamente.\n");
+                System.out.println("\nOops, movimento inválido! Por favor, repita novamente.\n");
+
+            if (!board.isEmptyElement(rowChosen, columnChosen))
+                System.out.println("\nOops, a posição atual já contem um valor\n");
         }
     }
 
@@ -63,7 +66,7 @@ public class TicTacGame {
 
     private int renderPositionMessage(String message){
         System.out.println("\nJogador " + player + " escolha a "+message+" que você deseja jogar");
-        return scanner.nextInt();
+        return scanner.nextInt()-1;
     }
 
     private void renderWinner(char winner){

@@ -10,8 +10,9 @@ public class RenderBoard {
     }
 
     public void render() {
-
+        System.out.println("  1   2   3");
         for (int i = 0; i < board.size(); i++) {
+            System.out.print(i+1);
             for (int j = 0; j < board.size(); j++) {
                 renderElement(board.getElement(i,j));
                 if (j < board.size() -1)
@@ -33,7 +34,7 @@ public class RenderBoard {
 
     }
     private static void renderLine(){
-        System.out.print("\n-----------\n");
+        System.out.print("\n -----------\n");
     }
     private static void renderColumn(){
         System.out.print("|");

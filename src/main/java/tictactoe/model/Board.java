@@ -1,16 +1,11 @@
 package tictactoe.model;
 
-import java.util.Arrays;
-
 public class Board {
     private final char[][] elements;
 
     public Board (int size){
         elements = new char[size][size];
-        init();
-    }
 
-    private void init() {
         for (int i = 0; i < size(); i++) {
             for (int j = 0; j < size(); j++) {
                 elements[i][j] = Character.MIN_VALUE;
@@ -18,13 +13,10 @@ public class Board {
         }
     }
 
-    public void setElement(int line, int column, char player) {
-        this.elements[line][column] = player;
+    public void setElement(int row, int column, char element) {
+        this.elements[row][column] = element;
     }
 
-    public char[][] getElements() {
-        return elements;
-    }
     public char getElement(int row, int column){
         return this.elements[row][column];
     }
@@ -42,7 +34,7 @@ public class Board {
     }
 
     public boolean isInvalidPosition(int row, int column){
-        return isInvalid(row) || isInvalid(column);
+        return isInvalid(row) || isInvalid(column) ;
     }
 
     private boolean isInvalid(int position) {
@@ -52,7 +44,8 @@ public class Board {
     public boolean isFull() {
         for (int i = 0; i < size(); i++ ) {
             for (int j = 0; j < size(); j++) {
-                if (this.elements[i][j] == '\0') return false;
+                if (isEmptyElement(i,j))
+                    return false;
             }
         }
         return true;
